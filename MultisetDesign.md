@@ -58,6 +58,8 @@ Getting a quantity count of how many of a single item is in the inventory would 
 
 # UML Diagram
 
+![UML Digram](UMLDiagram.png "UML Diagram showing off class")
+
 # Trade-off Analysis
 ## Compare basics of the two structures
 
@@ -81,7 +83,7 @@ I did not use a Hash Table as I decided that not having “stacks” of items wa
 
 # Evaluation Plan
 
-To fully evaluate the Sequence a set of tests would need developed to show proper functionality. These tests would consist of operations that a player would be using against the inventory. Ensuring that it works properly for when they are interfacing with it.
+To fully evaluate the Sequence a set of tests would need developed to show proper functionality. These tests would consist of operations that a player would be using against the inventory. Ensuring that it works properly for when they are interfacing with it. To make sure that it would continue working for other use cases I want to utilize many private variables so that it can be highly customized for different cases. While the player character shouljhd have a max inventory size of 64 things like monsters or non-playable characters will not have as large of an inventory. 
 
 # Conclusion
 
