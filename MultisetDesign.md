@@ -83,6 +83,8 @@ I did not use a Hash Table as I decided that not having “stacks” of items wa
 
 # Alternative Design Sketch
 
+If I had fully gone with utilizing a HashTable instead of a Sequence my limitation of inventory slots would be very different than with my Sequence. I would be able to use "stacks" of items as described in the previous section. This implementation could have made gameplay more fun and interesting as you could hold more items since they would not all take up their own slots in the inventory.
+
 # Evaluation Plan
 
 ## Evaluation
@@ -95,8 +97,3 @@ To make sure that it would continue working for other use cases I want to utiliz
 
 # Conclusion
 
-
-
-<div style="page-break-after: always;"></div>
-
-# References
