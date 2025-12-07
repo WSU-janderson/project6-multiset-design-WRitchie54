@@ -50,15 +50,21 @@ A final major operation needed is access to how large the inventory currently is
 
 # Set Operations
 
-A useful set operation for my game inventory would be (). This could be useful in (). It would be implemented via .... 
+A useful set operation for my game inventory would be union_with. This could be useful in adding full loot selections from a monster drop. When monsters are slain a pop-up grid with up to 4 items to be picked up will be displayed. To grab all items at once a union would work well. It would be implemented via adding all elements from the monsters loot grid in to a temporary inventory along with all items from the players inventory. This temporary inventory would be checked to ensure it matches the constraints on inventories regarding size and if it is okay made the players new inventory. Otherwise the player will be unable to do a pick up all from the monster.
 
 # Extension Feature
 
-Getting a quantity count of how many of a single item is in the inventory would be helpful in some display cases. One use in particular would be in displaying how many of an item like a potion the character has in the hop bar or during trade. The time complexity of this is O(n) as one needs to go through entire list to add up all of the instances of the item. This operation is slow for an extremely large inventory but I do not expect item amounts in an inventory to become large enough for awful performance to be had. This is one of the major weaknesses of the Sequence when using with just a string as the data type as there is no other way to find quantity than iterating through. Part of my reason for limiting inventory space to 64 items was to account for this weakness of the Sequence.
+Getting a quantity count of how many of a single item is in the inventory would be helpful in some display cases. One use in particular would be in displaying how many of an item like a potion the character has in the hop bar or during trade. The time complexity of this is O(n) as one needs to go through entire list to add up all of the instances of the item. This operation is slow for an extremely large inventory but I do not expect item amounts in an inventory to become large enough for awful performance to be had. This is one of the major weaknesses of the Sequence when using with just a string as the data type as there is no other way to find quantity than iterating through. Part of my reason for limiting inventory space to 64 items was to account for this weakness of the Sequence. This would be a function that would return the quantity to the hop bar or trade view. Since these will be much smaller windows than the standard inventory it will not be the largest ask computationally wise.
 
 # UML Diagram
 
 # Trade-off Analysis
+## Compare basics of the two structures
+
+The basic setup of the hash table is similar to the Sequence. They are both able to be accessed and modified via an index. The hash table is better at utilizing quantities than the Sequence is. With the hash table I could easily implement having multiple of one item within a slot of the table instead of needing separate functionality to count how many are had.  
+
+## Why did I not choose the hash table?
+I did not use a Hash Table as I decided that not having “stacks” of items was not an issue with the design of the game. One of the other big issues with using a HashTable instead of a Sequence is the added complexity of the HashTable. Needing to implement a hash function along with probing would be additional effort that is not required for a Sequence. I did not believe that the benefits with quantities was worth the additional effort for hashing procedures to be made
 
 
 
@@ -78,6 +84,8 @@ Getting a quantity count of how many of a single item is in the inventory would 
 To fully evaluate the Sequence a set of tests would need developed to show proper functionality. These tests would consist of operations that a player would be using against the inventory. Ensuring that it works properly for when they are interfacing with it.
 
 # Conclusion
+
+
 
 <div style="page-break-after: always;"></div>
 
