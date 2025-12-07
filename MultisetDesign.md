@@ -50,11 +50,11 @@ A final major operation needed is access to how large the inventory currently is
 
 # Set Operations
 
-A useful set operation for my game inventory would be union_with. This could be useful in adding full loot selections from a monster drop. When monsters are slain a pop-up grid with up to 4 items to be picked up will be displayed. To grab all items at once a union would work well. It would be implemented via adding all elements from the monsters loot grid in to a temporary inventory along with all items from the players inventory. This temporary inventory would be checked to ensure it matches the constraints on inventories regarding size and if it is okay made the players new inventory. Otherwise the player will be unable to do a pick up all from the monster.
+A useful set operation for my game inventory would be union_with. It would be called PickUpAll(GameInventory otherInventory). This could be useful in adding full loot selections from a monster drop. When monsters are slain a pop-up grid with up to 4 items to be picked up will be displayed. To grab all items at once a union would work well. It would be implemented via adding all elements from the monsters loot grid in to a temporary inventory along with all items from the players inventory. This temporary inventory would be checked to ensure it matches the constraints on inventories regarding size and if it is okay made the players new inventory. Otherwise the player will be unable to do a pick up all from the monster.
 
 # Extension Feature
 
-Getting a quantity count of how many of a single item is in the inventory would be helpful in some display cases. One use in particular would be in displaying how many of an item like a potion the character has in the hop bar or during trade. The time complexity of this is O(n) as one needs to go through entire list to add up all of the instances of the item. This operation is slow for an extremely large inventory but I do not expect item amounts in an inventory to become large enough for awful performance to be had. This is one of the major weaknesses of the Sequence when using with just a string as the data type as there is no other way to find quantity than iterating through. Part of my reason for limiting inventory space to 64 items was to account for this weakness of the Sequence. This would be a function that would return the quantity to the hop bar or trade view. Since these will be much smaller windows than the standard inventory it will not be the largest ask computationally wise.
+Getting a quantity count of how many of a single item is in the inventory would be helpful in some display cases. One use in particular would be in displaying how many of an item like a potion the character has in the hop bar or during trade. This would be called QuantityOf(string itemName). The time complexity of this is O(n) as one needs to go through entire list to add up all of the instances of the item. This operation is slow for an extremely large inventory but I do not expect item amounts in an inventory to become large enough for awful performance to be had. This is one of the major weaknesses of the Sequence when using with just a string as the data type as there is no other way to find quantity than iterating through. Part of my reason for limiting inventory space to 64 items was to account for this weakness of the Sequence. This would be a function that would return the quantity to the hop bar or trade view. Since these will be much smaller windows than the standard inventory it will not be the largest ask computationally wise.
 
 # UML Diagram
 
@@ -65,7 +65,7 @@ The members Size and MaxSize are private members that should only be adjusted by
 # Trade-off Analysis
 ## Compare basics of the two structures
 
-The basic setup of the hash table is similar to the Sequence. They are both able to be accessed and modified via an index. The hash table is better at utilizing quantities than the Sequence is. With the hash table I could easily implement having multiple of one item within a slot of the table instead of needing separate functionality to count how many are had.  
+The basic setup of the hash table is similar to the Sequence. They are both able to be accessed and modified via an index. The hash table is better at utilizing quantities than the Sequence is. With the hash table I could easily implement having multiple of one item within a slot of the table instead of needing separate functionality to count how many are had. The hash table would usually have better performance in index based operations but would sometimes suffer and fall to O(n) in edge cases. This speed increase comes from the fact that pseudo random probing generally has a greater chance of finding an item as long as good random generators are used.
 
 ## Why did I not choose the hash table?
 I did not use a Hash Table as I decided that not having “stacks” of items was not an issue with the design of the game. One of the other big issues with using a HashTable instead of a Sequence is the added complexity of the HashTable. Needing to implement a hash function along with probing would be additional effort that is not required for a Sequence. I did not believe that the benefits with quantities was worth the additional effort for hashing procedures to be made
@@ -83,7 +83,7 @@ I did not use a Hash Table as I decided that not having “stacks” of items wa
 
 # Alternative Design Sketch
 
-If I had fully gone with utilizing a HashTable instead of a Sequence my limitation of inventory slots would be very different than with my Sequence. I would be able to use "stacks" of items as described in the previous section. This implementation could have made gameplay more fun and interesting as you could hold more items since they would not all take up their own slots in the inventory.
+If I had fully gone with utilizing a HashTable instead of a Sequence my limitation of inventory slots would be very different than with my Sequence. I would be able to use "stacks" of items as described in the previous section. This implementation could have made gameplay more fun and interesting as you could hold more items since they would not all take up their own slots in the inventory. More gameplay opportunities would be able to be explored though there would be a greater complexity to coding gameplay.
 
 # Evaluation Plan
 
@@ -97,3 +97,6 @@ To make sure that it would continue working for other use cases I want to utiliz
 
 # Conclusion
 
+Through writing this plan I have found that while the Sequence can be used for a game inventory it may not be the end all solution. Through utilizing it as my data structure of choice I limited myself in multiple different facets for the sake of simplicity. By using it I needed a specific extension function to be able to find the quantity of a single item in the inventory instead of being able to just store the quantity in the data structure like I could have with an AVL tree or HashTable.
+
+I was able to explore abstraction via setting up inserts, removals, and the other public methods. By setting them up in this way other places are able to access these ideas without needing to set up large amounts of code each time they want to do a new action. I went through encapsulation via privatizing variables and functions that would not be accessed by outside classes. These variables needed to be privatized as they needed to be kept in a proper order for functionality of the inventory to stay proper.
